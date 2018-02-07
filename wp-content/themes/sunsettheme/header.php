@@ -12,43 +12,37 @@ This is the template for the header
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="profile" href="http://gmpg.org/xfn/11">
   <?php if (is_singular() && pings_open(get_queried_boject() ) ): ?>
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+      <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
   <?php endif; ?>
   <?php wp_head(); ?>
-  <title></title>
 </head>
 
 <body <?php body_class(); ?>>
 
-  <div class="container-fluid">
+  <div>
+
     <div class="row">
+
       <div class="col-xs-12">
 
-      </div> //.col-xs-12
-    </div> //.row
-    <div class="row">
-      <div class="col-xs-12">
+          <div class="header-container background-image text-center" style="background-image: url(<?php header_image(); ?>);">
 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
+            <div class="header-content vertical-center">
+                  <h1 class="site-title sunset-icon">
+                    <span class="sunset-logo"></span>
+                    <span class="hide"> <?php bloginfo('name'); ?> </span>
+                  </h1>
+                  <h2 class="site-description"> <?php bloginfo('description'); ?> </h2>
+            </div>  <!-- .header-content -->
 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
+            <div class="nav-container">
 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
+            </div>  <!-- .nav-container -->
 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
+          </div>  <!-- .header-container -->
 
-      </div>
-    </div>
-  </div> //.container-fluid
+      </div>  <!-- .col-xs-12 -->
+
+    </div>   <!--.row -->
+
+  </div>  <!-- .container-fluid -->

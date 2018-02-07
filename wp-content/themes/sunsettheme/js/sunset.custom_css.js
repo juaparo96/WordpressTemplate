@@ -4,7 +4,7 @@ jQuery(document).ready(function($){
     $("#sunset_css").val(editor.getSession().getValue());
   }
 
-  $("#save-costum-css-form").submit(updateCSS);
+  $("#save-custom-css-form").submit(updateCSS);
 
 });
 
