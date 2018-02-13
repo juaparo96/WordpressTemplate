@@ -6,7 +6,7 @@ admin enqueue functions
 
 */
 function sunset_load_admin_scripts($hook) {
-  
+
   //echo $hook;
 
   if ( 'toplevel_page_juan_sunset' == $hook)  {
@@ -48,6 +48,7 @@ function sunset_load_scripts(){
   wp_enqueue_script( 'jquery' );
 
   wp_enqueue_script('bootstrap', get_template_directory_uri(). '/js/bootstrap.min.js', array('jquery'), '3.3.6', true);
+  wp_enqueue_script('sunset', get_template_directory_uri(). '/js/sunset.js', array('jquery'), '1.0.0', true);
 
 }
 
