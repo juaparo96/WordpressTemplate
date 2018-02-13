@@ -4,48 +4,17 @@
 
 */
 
-
-
 /*
-Mixins
--------------------------------------
+Variables
+----------------------------------
 */
 
-@mixin animate ($attr, $time) {
-  -webkit-transition: $attr $time ease;
-  -moz-transition: $attr $time ease;
-  -ms-transition: $attr $time ease;
-  -o-transition: $attr $time ease;
-  transition: $attr $time ease;
-}
+@import 'base/variables';
+@import "base/mixins";
+@import "base/fonticon";
+@import "base/placeholders";
 
-@mixin transform ($val){
-  -webkit-transform: $val;
-  -moz-transform:$val;
-  -ms-transform:$val;
-  -o-transform:$val;
-  transform:$val;
-}
-
-
-/*
-Font icon
------------------------------------------
-*/
-
-
-@font-face {
-  font-family: 'sunset-icon';
-  src:    url('../fonts/sunset-icon.eot?dxcjr7');
-  src:    url('../fonts/sunset-icon.eot?dxcjr7#iefix') format('embedded-opentype'),
-  url('../fonts/sunset-icon.ttf?dxcjr7') format('truetype'),
-  url('../fonts/sunset-icon.woff?dxcjr7') format('woff'),
-  url('../fonts/sunset-icon.svg?dxcjr7#sunset-icon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.sunset-icon { font-family: 'sunset-icon' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } .sunset-audio:before { content: "\e800"; } .sunset-chevron-left:before { content: "\e801"; } .sunset-chevron-right:before { content: "\e802"; } .sunset-close:before { content: "\e803"; } .sunset-comment:before { content: "\e804"; } .sunset-link:before { content: "\e805"; } .sunset-loading:before { content: "\e806"; } .sunset-logo:before { content: "\e807"; } .sunset-menu:before { content: "\e808"; } .sunset-pencil:before { content: "\e809"; } .sunset-pics:before { content: "\e80a"; } .sunset-search:before { content: "\e80b"; } .sunset-share:before { content: "\e80c"; } .sunset-tag:before { content: "\e80d"; } .sunset-video:before { content: "\e80e"; }
+.sunset-audio:before { content: "\e800"; } .sunset-chevron-left:before { content: "\e801"; } .sunset-chevron-right:before { content: "\e802"; } .sunset-close:before { content: "\e803"; } .sunset-comment:before { content: "\e804"; } .sunset-link:before { content: "\e805"; } .sunset-loading:before { content: "\e806"; } .sunset-logo:before { content: "\e807"; } .sunset-menu:before { content: "\e808"; } .sunset-pencil:before { content: "\e809"; } .sunset-pics:before { content: "\e80a"; } .sunset-search:before { content: "\e80b"; } .sunset-share:before { content: "\e80c"; } .sunset-tag:before { content: "\e80d"; } .sunset-video:before { content: "\e80e"; }
 
 
 /*
@@ -53,7 +22,23 @@ Generic
 -----------------------------------------
 */
 
-body{ font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', Arial, Verdana, sans-serif;}
+body{ font-family: $body-font; }
+
+a {
+  color: $primary-color;
+  @include animate(color, 320ms);
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: $dark-grey;
+  }
+}
+
+.entry-meta{
+  &:before {
+    content: 'Posted';
+  }
+}
 
 .background-image { background-position: center center; background-size: cover; background-repeat: no-repeat;}
 .vertical-center {align-items: center; display: flex; flex-direction: column; justify-content: center; height: 100%;}
@@ -62,7 +47,7 @@ Header
 -----------------------------------------
 */
 
-.header-container { position: relative; display: block; height: 326px; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.header-container { @extend %text-shadow; position: relative; display: block; height: 326px; }
 .site-title{ color: #fff; margin: 0; font-size: 80px;}
 .site-description{ font-size: 14px; color: #fff; margin-top: 1em; }
 
@@ -137,6 +122,262 @@ Nav Bar
         }
 
       }
+      ul.dropdown-menu {
+        border: 0;
+        background: rgba(0,0,0,0.75);
+        li {
+          display: block;
+          a{
+            &:hover,
+            &:focus,
+            &:visited {
+              background: rgba(0,0,0,0.25)!important;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/*
+Formato Standart del post
+-----------------------------------
+*/
+
+//articulo
+article {
+  margin-bottom: 80px;
+}
+
+
+h1 {
+  font-size: 48px;
+  font-weight: 200;
+  a{
+    color: $primary-color;
+  }
+  &.entry-title {
+    line-height: 1.5em;
+    margin: 40px 0 0;
+    padding: 0;
+    &:before,
+    &:after {
+      content: '~';
+      display: inline-block;
+      position: relative;
+    }
+    &:before{
+      margin-right: 10px;
+    }
+    &:after {
+      margin-left: 10px;
+    }
+  }
+}
+
+.entry-meta {
+  font-size: 13px;
+  font-weight: 200;
+  color: $light-grey;
+  margin-bottom: 20px;
+  a {
+    font-weight: 500; color: $light-grey;
+    &:hover,
+    &:focus {
+      color: $dark-grey;
+    }
+  }
+}
+//link post
+.standart-featured-link {
+  display: block;
+  position: relative;
+  &:hover,
+  &:focus{
+    .standart-featured {
+      &:after {
+        background-color: rgba(0,0,0,0);
+      }
+    }
+  }
+}
+
+//Formato de imagen
+
+.standart-featured {
+  height: 330px;
+  display: block;
+  position: relative;
+  &:after {
+    @include animate(background-color, 320ms);
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.15);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.35);
+  }
+}
+
+
+.entry-excerpt {
+  margin: 30px 0 16px;
+  p {
+    font-size: 17px;
+    line-height: 1.5em;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+}
+//container de boton
+.button-container {
+  margin-bottom: 30px;
+
+}
+
+//boton read more
+.btn-sunset {
+  @include animate(all, 320ms);
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 300;
+  color: $light-grey;
+  padding: 6px 12px;
+  border-radius: 0;
+  border: 1px solid $light-grey;
+  background-color: transparent;
+  &:hover,
+  &:focus{
+    color: #ffffff;
+    border-color: $dark-grey;
+    background-color: $dark-grey;
+  }
+}
+
+//footer
+.entry-footer {
+  padding: 10px 5px;
+  border-bottom: 4px solid $lighter-grey;
+  color: $light-grey;
+  text-transform: uppercase;
+  a{
+    color : $light-grey;
+    display: inline-block;
+    font-size: 12px;
+    &:hover,
+    &:focus {
+      color: $dark-grey;
+    }
+  }
+  .tags-list{
+    .sunset-icon {
+      margin-right: 10px;
+    }
+    a {
+      padding: 0 4px;
+    }
+  }
+  .comments-link {
+    .sunset-icon {
+      margin-left: 10px;
+    }
+  }
+}
+
+
+/*
+
+Formato de post en imagen
+--------------------------------------------
+*/
+
+.sunset-format-image {
+  margin-top: 50px;
+  .entry-header {
+    height: 600px;
+    @extend %text-shadow;
+    position: relative;
+  }
+  h1,
+  .entry-meta,
+  .entry-header {
+    color: #ffffff;
+    a {
+      color: #ffffff;
+    }
+  }
+  h1 {
+    padding-top: 10px;
+  }
+}
+
+// caption de imagen
+
+.entry-excerpt {
+  &.image-caption{
+    @extend %background-gradient;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 1px;
+    p{
+      margin: 20px 0;
+    }
+  }
+}
+
+/*
+
+Formato de post en Audio
+--------------------------------------------
+*/
+
+.sunset-format-audio {
+  h1 {
+    font-size: 30px;
+    &.entry-title {
+      display: inline-block;
+      margin-right: 20px;
+      &:before,
+      &:after {
+          display: none;
+      }
+    }
+  }
+
+  .entry-meta {
+      display: inline-block;
+      margin-bottom: 0;
+  }
+
+    .entry-content {
+      iframe {
+        width: 100%;
+        height: 166px;
+      }
+    }
+}
+
+/*
+
+Formato de post en Video
+--------------------------------------------
+*/
+
+.sunset-format-video {
+  header {
+    margin-top: 40px;
+  }
+  h1 {
+    &.entry-title{
+      margin-top: 20px;
     }
   }
 }
