@@ -4,7 +4,10 @@
       @package juan sunset
  */
  ?>
- 
+
+ <footer class="sunset-footer text-center"></footer>
+
+
 <?php wp_footer();?>
 </body>
 </html>

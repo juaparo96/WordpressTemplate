@@ -10,39 +10,31 @@
 <article id="post-<?php  the_ID(); ?>" <?php post_class('sunset-format-gallery'); ?> >
   <header class="entry-header text-center">
 
-    <?php if ( sunset_get_attachment() ) :
-      $attachments = sunset_get_attachment(7);
-      //var_dump($attachments);
-      ?>
+    <?php if ( sunset_get_attachment() ) : ?>
 
       <div id="post-gallery-<?php  the_ID(); ?>" class="carousel slide ll sunset-carousel-thumb" data-ride="carousel">
 
         <div class="carousel-inner" role="listbox">
 
           <?php
-          $count = count($attachments)-1;
-          for($i = 0; $i <= $count; $i++) :
-            $active = ($i == 0 ? ' active' : '');
 
-            $n = ($i == $count ? 0 : $i+1);
-            $nextImg = wp_get_attachment_thumb_url($attachments[$n]->ID);
-            $p = ($i == 0 ? $count : $i-1);
-            $prevtImg = wp_get_attachment_thumb_url($attachments[$p]->ID);
+          $attachments = sunset_get_bs_slides( sunset_get_attachment(7) );
+          foreach ($attachments as $attachment):
             ?>
 
-            <div class="item<?php echo $active; ?>  background-image standart-featured" style="background-image: url(<?php echo
-            wp_get_attachment_url($attachments[$i]->ID); ?>);">
+            <div class="item<?php echo $attachment['class']; ?>  background-image standart-featured" style="background-image: url(<?php echo
+            $attachment['url']; ?>);">
 
-            <div class="hiden next-image-preview" data-image="<?php echo $nextImg ?>"></div>
-            <div class="hiden prev-image-preview" data-image="<?php echo $prevtImg ?>"></div>
+            <div class="hiden next-image-preview" data-image="<?php echo $attachment['next_img']; ?>"></div>
+            <div class="hiden prev-image-preview" data-image="<?php echo $attachment['prev_img']; ?>"></div>
 
             <div class="entry-excerpt image-caption">
-              <p><?php echo $attachments[$i]->post_excerpt; ?></p>
+              <p><?php echo $attachment['caption']; ?></p>
             </div>
 
           </div>
 
-        <?php endfor; ?>
+        <?php endforeach; ?>
 
       </div> <!-- .carousel-inner -->
 

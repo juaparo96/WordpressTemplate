@@ -84,9 +84,9 @@ function sunset_posted_meta () {
   }
 
 
-/*
-      Obtener imagenes del post
- */
+  /*
+  Obtener imagenes del post
+  */
   function sunset_get_attachment($num = 1 ) {
 
     $output = '';
@@ -102,31 +102,70 @@ function sunset_posted_meta () {
       if ($attachments && $num == 1):
         foreach ($attachments as $attachment) :
           $output = wp_get_attachment_url($attachment->ID);
-              endforeach;
+        endforeach;
         elseif ($attachments && $num > 1):
           $output = $attachments;
+        endif;
+        wp_reset_postdata();
       endif;
-      wp_reset_postdata();
-    endif;
 
-    return $output;
-  }
+      return $output;
+    }
 
-/*
+    /*
 
-  Obtener audio
- */
+    Obtener audio
+    */
 
-function sunset_get_embedded_media($type = array()) {
+    function sunset_get_embedded_media($type = array()) {
 
-  $content = do_shortcode(apply_filters('the_content', get_the_content())  );
-  $embed = get_media_embedded_in_content($content, $type);
+      $content = do_shortcode(apply_filters('the_content', get_the_content())  );
+      $embed = get_media_embedded_in_content($content, $type);
 
-  if (in_array('audio', $type) ):
-  $output =  str_replace('?visual=true', '?visual=false' , $embed[0]);
-else:
-  $output = $embed[0];
-endif;
-  return  $output;
+      if (in_array('audio', $type) ):
+        $output =  str_replace('?visual=true', '?visual=false' , $embed[0]);
+      else:
+        $output = $embed[0];
+      endif;
+      return  $output;
 
-}
+    }
+
+    /*
+    Obtener carousel
+
+    */
+function sunset_get_bs_slides ($attachments){
+
+      $output = array();
+
+      $count = count($attachments)-1;
+      for($i = 0; $i <= $count; $i++) :
+        $active = ($i == 0 ? ' active' : '');
+
+        $n = ($i == $count ? 0 : $i+1);
+        $nextImg = wp_get_attachment_thumb_url($attachments[$n]->ID);
+        $p = ($i == 0 ? $count : $i-1);
+        $prevtImg = wp_get_attachment_thumb_url($attachments[$p]->ID);
+
+        $output[$i] = array(
+          'class'   => $active,
+          'url'     => wp_get_attachment_url($attachments[$i]->ID),
+          'next_img'=> $nextImg,
+          'prev_img'=> $prevtImg,
+          'caption' => $attachments[$i]->post_excerpt
+        );
+
+      endfor;
+
+      return $output;
+    }
+
+
+    //Poner redireccion en el post link
+    function sunset_grab_url() {
+      if(! preg_match('/<a\s[^>]*?href=[\'"](.+?)[\'"]/i', get_the_content(), $links)){
+        return false;
+      }
+      return esc_url_raw($links[1]);
+    }
