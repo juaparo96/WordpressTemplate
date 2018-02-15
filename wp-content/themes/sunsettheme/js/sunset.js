@@ -8,7 +8,7 @@ jQuery(document).ready(function($){
 
 
   $(carousel).on('slid.bs.carousel', function(){
-     sunset_get_bs_thumbs(carousel);
+    sunset_get_bs_thumbs(carousel);
   });
 
   function sunset_get_bs_thumbs( carousel ){
@@ -24,28 +24,42 @@ jQuery(document).ready(function($){
   }
 
   /*
-      Funciones de ajax
-   */
-    $(document).on('click', '.sunset-load-more', function() {
+  Funciones de ajax
+  */
+  $(document).on('click', '.sunset-load-more:not(.loading)', function() {
 
-      var page = $(this).data('page');
-      var ajaxurl = $(this).data('url');
+    var that = $(this);
+    var page = that.data('page');
+    var ajaxurl = that.data('url');
+    var newPage = page+1;
 
-      $.ajax({
-          url : ajaxurl,
-          type : 'post',
-          data : {
-            page : page,
-            action : 'sunset_load_more'
-          },
-          error : function ( response ) {
-                console.log(response);
-          },
-          success : function (response){
-                $('.sunset-posts-container').append(response);
-          }
-      });
+    that.addClass('loading').find('.text').slideUp(320);
+    that.find('.sunset-icon').addClass('spin');
 
+    $.ajax({
+      url : ajaxurl,
+      type : 'post',
+      data : {
+        page : page,
+        action : 'sunset_load_more'
+      },
+      error : function ( response ) {
+        console.log(response);
+      },
+      success : function (response){
+
+          setTimeout(function (){
+
+        that.data('page',newPage);
+        $('.sunset-posts-container').append(response);
+
+          that.removeClass('loading').find('.text').slideDown(320);
+          that.find('.sunset-icon').removeClass('spin');
+        }, 2000);
+
+      }
     });
+
+  });
 
 });
