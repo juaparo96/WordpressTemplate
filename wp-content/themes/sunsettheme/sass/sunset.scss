@@ -1,7 +1,7 @@
 /*
-
-@package sunsettheme
-
+*
+* @package sunsettheme
+*
 */
 
 /*
@@ -13,6 +13,7 @@ Variables
 @import "base/mixins";
 @import "base/fonticon";
 @import "base/placeholders";
+@import "base/wordpress";
 
 .sunset-audio:before { content: "\e800"; } .sunset-chevron-left:before { content: "\e801"; } .sunset-chevron-right:before { content: "\e802"; } .sunset-close:before { content: "\e803"; } .sunset-comment:before { content: "\e804"; } .sunset-link:before { content: "\e805"; } .sunset-loading:before { content: "\e806"; } .sunset-logo:before { content: "\e807"; } .sunset-menu:before { content: "\e808"; } .sunset-pencil:before { content: "\e809"; } .sunset-pics:before { content: "\e80a"; } .sunset-search:before { content: "\e80b"; } .sunset-share:before { content: "\e80c"; } .sunset-tag:before { content: "\e80d"; } .sunset-video:before { content: "\e80e"; }
 
@@ -653,4 +654,25 @@ Ajax de Loading
   animation-duration: 1000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+}
+
+/*
+    Single
+   ------------------------------------------
+ */
+
+.entry-content {
+  margin-top: 40px;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  font-weight: 300;
+  line-height: 1.7em;
+
+  p{
+    margin-bottom: 15px;
+  }
+  b,
+  strong{
+    font-weight: 500;
+  }
 }

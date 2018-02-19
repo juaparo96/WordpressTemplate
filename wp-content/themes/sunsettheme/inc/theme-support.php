@@ -169,3 +169,12 @@ function sunset_get_bs_slides ($attachments){
       }
       return esc_url_raw($links[1]);
     }
+
+
+    function sunset_grap_current_uri () {
+      $http = ( isset( $_SERVER["HTTPS"] )  ? 'https://' : 'http://' );
+      $referer = $http . $_SERVER["HTTP_HOST"];
+      $archive_url = $referer . $_SERVER["REQUEST_URI"];
+      
+      return $archive_url;
+    }

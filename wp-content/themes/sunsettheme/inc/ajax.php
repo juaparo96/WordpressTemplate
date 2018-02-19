@@ -9,16 +9,67 @@ add_action ('wp_ajax_sunset_load_more', 'sunset_load_more');
 function sunset_load_more (){
   //cargar todos los posts
   $paged = $_POST["page"]+1;
+  $prev = $_POST["prev"];
+  $archive = $_POST["archive"];
 
-  $query = new WP_Query( array(
+  if ($prev == 1 && $_POST["page"] != 1) {
+    $paged = $_POST["page"]-1;
+  }
+
+  $args =  array(
     'post_type' => 'post',
     'post_status' => 'publish',
     'paged' => $paged
-  ) );
+  );
 
-  if($query->have_posts() ):
+  if ($archive != '0') {
 
-    echo '<div class="page-limit" data-page="/wordpress/page/'.$paged.'">';
+    $archVal = explode ('/', $archive);
+    $flipped = array_flip($archVal);
+
+    switch (isset($flipped ) ) {
+
+      case $flipped["category"]:
+      $type = "category_name";
+      $key = "category";
+      break;
+
+      case $flipped["tag"]:
+      $type = "tag";
+      $key = $type;
+      break;
+
+      case $flipped["author"]:
+      $type = "author";
+      $key = $type;
+      break;
+
+    }
+
+    $currKey = array_keys( $archVal, $key);
+    $nextKey = $currKey[0]+1;
+    $value = $archVal[$nextKey];
+
+    $args[ $type ] = $value;
+    /* Chquear ruta de pagina y remover el value "page"  */
+    if ( isset( $flipped["page"] ) ) {
+
+      $pageVal = explode ('page', $archive);
+      $page_trail = $pageVal[0];
+
+    }else {
+      $page_trail = $archive;
+    }
+
+  } else {
+    $page_trail = '/';
+  }
+
+  $query = new WP_Query($args);
+
+  if( $query->have_posts() ):
+
+    echo '<div class="page-limit" data-page="'. $page_trail .'page/'.$paged.'/">';
 
     while ($query->have_posts() ): $query->the_post();
 
@@ -27,6 +78,9 @@ function sunset_load_more (){
   endwhile;
 
   echo '</div>';
+else:
+
+  echo 0;
 
 endif;
 
@@ -43,10 +97,10 @@ function sunset_check_paged( $num = null ) {
 
   if ( is_paged() ) {
 
-    $output = '/wordpress/page/'. get_query_var('paged');
+    $output = '/page/'. get_query_var('paged');
 
   }
-/* -------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------- */
   if ( $num == 1 ) {
     $paged = (get_query_var('paged') == 0 ? 1 : get_query_var('paged') );
     return $paged;
