@@ -36,6 +36,8 @@ function sunset_register_nav_menu(){
 
 }
 
+/* Activar caracteristicas HTML5 */
+add_theme_support( 'html5', array('comment-list','comment-form', 'search-form', 'gallery', 'caption') );
 
 /*
 
@@ -135,7 +137,7 @@ function sunset_posted_meta () {
     Obtener carousel
 
     */
-function sunset_get_bs_slides ($attachments){
+    function sunset_get_bs_slides ($attachments){
 
       $output = array();
 
@@ -175,6 +177,61 @@ function sunset_get_bs_slides ($attachments){
       $http = ( isset( $_SERVER["HTTPS"] )  ? 'https://' : 'http://' );
       $referer = $http . $_SERVER["HTTP_HOST"];
       $archive_url = $referer . $_SERVER["REQUEST_URI"];
-      
+
       return $archive_url;
+    }
+
+    /*
+    Personalizar funciones de single post next-previous
+    */
+
+    function sunset_post_navigation () {
+
+      $nav = '<div class="row">';
+
+      $prev = get_previous_post_link( '<div class="post-link-nav"><span class="sunset-icon sunset-chevron-left"></span>%link</div>',
+      '%title' );
+      $nav .= '<div class="col-xs-12 col-sm-6">'. $prev .'</div>';
+
+      $next = get_next_post_link( '<div class="post-link-nav">%link<span class="sunset-icon sunset-chevron-right"></span></div>', '%title' );
+      $nav .= '<div class="col-xs-12 col-sm-6 text-right">'. $next .'</div>';
+
+      $nav .= '</div>';
+
+      return $nav;
+    }
+
+    //links de compartir
+
+    add_filter('the_content', 'sunset_share_this');
+
+    function sunset_share_this( $content )  {
+
+      if (is_single() ) {
+
+        $content .= '<div class="sunset-shareThis"><h4>Share This</h4>';
+
+        $title = get_the_title();
+        $permalink = get_permalink();
+
+        $twitterHandler = (get_option('twitter_handler') ? '&amp;via='. esc_attr( get_option('twitter_handler') ) : '' );
+
+        $twitter = 'https://twitter.com/intent/tweet?text=' .$title. '&amp;url=' . $permalink . $twitterHandler .'';
+        $facebook = 'https://www.facebook.com/sharer/sharer.php?u='.$permalink;
+        $google = 'https://plus.google.com/share?url='. $permalink;
+
+        $content .=  '<ul>';
+        $content .=  '<li><a href="'.$twitter.'" target="_blank" rel="nofollow"><span class="sunset-icon sunset-twitter"></span></a></li>';
+        $content .=  '<li><a href="'.$facebook.'" rel="nofollow"><span class="sunset-icon sunset-facebook"></span></a></li>';
+        $content .=  '<li><a href="'.$google.'" rel="nofollow"><span class="sunset-icon sunset-googleplus"></span></a></li>';
+
+        $content .= '</ul></div><!-- .sunset-share -->';
+
+        return $content;
+
+      } else {
+
+        return $content;
+      }
+
     }
