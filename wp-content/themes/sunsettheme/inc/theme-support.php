@@ -40,9 +40,26 @@ function sunset_register_nav_menu(){
 add_theme_support( 'html5', array('comment-list','comment-form', 'search-form', 'gallery', 'caption') );
 
 /*
+    Funciones de sidebar
+ */
+add_action('widgets_init', 'sunset_sidebar_init');
+ function sunset_sidebar_init() {
+   register_sidebar(
+     array(
+       'name'             => esc_html__('Sunset Sidebar', 'sunsettheme'),
+       'id'               => 'sunset-sidebar',
+       'description'      => 'Dynamic Right Sidebar',
+       'before_widget'    => '<section id="%1$s" class="sunset-widget %2$s">',
+       'after_widget'     => '</section>',
+       'before_title'     =>  '<h2 class="sunset-widget-title"></h2>',
+       'after_title'      => '</h2>'
+     )
+   );
+ }
 
-bucle para funciones personalizadas del blog
-
+/*
+  bucle para funciones personalizadas del blog
+  ------------------------------------------------
 */
 
 function sunset_posted_meta () {
@@ -233,5 +250,20 @@ function sunset_posted_meta () {
 
         return $content;
       }
+
+    }
+
+    /*
+        Obtener navegación de los post
+        -------------------------------------
+     */
+
+    function sunset_get_post_navigation () {
+
+    //  if (get_comment_pages_count() > 1 && get_option('page_comments') ):
+
+          require( (get_template_directory(). '/inc/templates/sunset-comment-nav.php' ) );
+
+    //  endif;
 
     }

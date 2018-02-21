@@ -140,7 +140,7 @@ jQuery(document).ready(function($){
 
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-    
+
     var posts = $('article:not(.reveal)');
     var i = 0;
 
@@ -168,5 +168,16 @@ jQuery(document).ready(function($){
     return ( (el_bottom - el_height*0.25 > scroll_pos ) && (el_top < (scroll_pos+0.5*window_height ) ) );
 
   }
+/* sidebar functions */
+  // $(document).on('click', '.js-closeSidebar', function(){
+  //         $('.sunset-sidebar').addClass('sidebar-closed');
+  // });
+  //
+  // $(document).on('click', '.js-openSidebar', function(){
+  //         $('.sunset-sidebar').removeClass('sidebar-closed');
+  // });
+   $(document).on('click', '.js-toggleSidebar', function(){
+            $('.sunset-sidebar').toggleClass('sidebar-closed');
+    });
 
 });
