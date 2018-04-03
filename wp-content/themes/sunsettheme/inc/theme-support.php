@@ -51,7 +51,7 @@ add_action('widgets_init', 'sunset_sidebar_init');
        'description'      => 'Dynamic Right Sidebar',
        'before_widget'    => '<section id="%1$s" class="sunset-widget %2$s">',
        'after_widget'     => '</section>',
-       'before_title'     =>  '<h2 class="sunset-widget-title"></h2>',
+       'before_title'     =>  '<h2 class="sunset-widget-title">',
        'after_title'      => '</h2>'
      )
    );
@@ -66,7 +66,7 @@ function sunset_posted_meta () {
 
   $posted_on = human_time_diff( get_the_time('U'), current_time('timestamp'));
   $categories = get_the_category();
-  $separator = ', ';
+  $separator = ',';
   $output = '';
   $i = 1;
   if (!empty($categories) ):
