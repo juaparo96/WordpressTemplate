@@ -2,6 +2,9 @@
 /*
 @package sunsettheme
 
+-- Page Template 
+
+
 */
 get_header(); ?>
 
