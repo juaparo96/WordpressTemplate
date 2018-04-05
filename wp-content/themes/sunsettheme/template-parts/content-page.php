@@ -1,49 +1,23 @@
 <?php
+
 /*
-@package sunsettheme
 
--- Page Template 
-
-
+@package
+-- Page Template
 */
-get_header(); ?>
+?>
 
-<div id="primary" class="content-area">
-  <main id="main" class="site-main" role="main">
+<article id="post-<?php  the_ID(); ?>" <?php post_class(); ?> >
+  <header class="entry-header text-center">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12  col-md-9 col-lg-8 col-lg-offset-2 col-md-offset-1">
+    <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 
-        <?php
 
-        if ( have_posts() ) :
+  </header>
 
-          while ( have_posts() ): the_post();
+  <div class="entry-content clearfix">
 
-          sunset_save_post_views( get_the_ID() );
+    <?php the_content(); ?>
 
-          get_template_part( 'template-parts/single', get_post_format() );
-
-        //  the_post_navigation();
-          echo sunset_post_navigation();
-
-          if (comments_open() ) :
-
-            comments_template();
-
-          endif;
-
-        endwhile;
-
-      endif;
-      ?>
-
-      </div><!-- .col-xs-12 -->
-    </div><!-- .row -->
-  </div><!-- .container -->
-
-</main>
-</div><!-- #primary -->
-
-<?php get_footer(); ?>
+  </div> <!-- .entry-content -->
+</article>

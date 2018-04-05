@@ -52,3 +52,24 @@ function sunset_popover ($atts, $content = null ) {
   $atts['title'].'" data-trigger="'.$atts['trigger'].'" data-content="'.$atts['content'].'">'.$content.'
   </span>';
 }
+
+//Contact Form ShortCode
+
+add_shortcode('contact_form', 'sunset_contact_form');
+function sunset_contact_form ($atts , $content = null) {
+  /*
+  [contact_form]
+  */
+  //obtener atributos del tooltip
+  $atts = shortcode_atts(
+    array(),
+    $atts,
+    'contact_form'
+
+  );
+
+  //devolver html del tooltip
+  ob_start();
+  include 'templates/contact-form.php';
+  return ob_get_clean();
+}

@@ -17,7 +17,6 @@ get_header(); ?>
 
         while ( have_posts() ): the_post();
 
-
         get_template_part( 'template-parts/content', 'page');
 
       endwhile;
@@ -25,11 +24,7 @@ get_header(); ?>
 
     endif;
     ?>
-  </div><!-- .container -->
-
-
-
-</main>
+    </div><!-- .container -->
+  </main>
 </div><!-- #primary -->
-
 <?php get_footer(); ?>

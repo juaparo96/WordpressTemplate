@@ -90,27 +90,27 @@ function sunset_contact_email_callback($post) {
 
 function sunset_save_contact_email_data ($post_id) {
 
-  if (!isset ($_POST['sunset_contact_email_meta_box_nonce'])  ) {
-    return;
-  }
+  if( ! isset( $_POST['sunset_contact_email_meta_box_nonce'] ) ){
+		return;
+	}
 
-  if (!wp_verify_nonce($_POST['sunset_contact_email_meta_box_nonce'], 'sunset_save_contact_email_data')) {
-    return;
-  }
+	if( ! wp_verify_nonce( $_POST['sunset_contact_email_meta_box_nonce'], 'sunset_save_contact_email_data') ) {
+		return;
+	}
 
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-    return;
-  }
+	if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ){
+		return;
+	}
 
-  if (!current_user_can('edit_post', $post_id)) {
-    return;
-  }
+	if( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
 
-  if (! isset($_POST['sunset_contact_email_field'] ) ) {
-    return;
-  }
+	if( ! isset( $_POST['sunset_contact_email_field'] ) ) {
+		return;
+	}
 
-  $my_data = sanitize_text_field($_POST['sunset_contact_email_field'] );
+	$my_data = sanitize_text_field( $_POST['sunset_contact_email_field'] );
 
-  update_post_meta( $post_id, '_contact_email_value_key', $my_data);
+	update_post_meta( $post_id, '_contact_email_value_key', $my_data );
 }

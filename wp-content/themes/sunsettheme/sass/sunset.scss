@@ -1056,3 +1056,55 @@ h2.sunset-widget-title {
 .small{
       padding-left: 38px;
 }
+
+/* Contact Form*/
+.sunset-contact-form{
+  padding: 40px 0;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+
+  .form-group{
+
+    margin-bottom: 30px;
+
+  }
+}
+.sunset-form-control{
+  resize: vertical;
+  border: none;
+  border-radius: 0;
+}
+
+.btn-sunset-form{
+  @include animate(all, 320ms);
+  background-color: $grey;
+  border-radius: 2px;
+  font-size: 26px;
+  padding: 14px 60px;
+  color: #fff;
+  font-weight: 100;
+  border: none;
+
+  &:hover,
+  &:focus{
+    background-color: $dark-grey;
+    color: #fff;
+  }
+
+}
+
+.form-control-msg{
+  display: none;
+}
+
+.has-error{
+  .form-control-msg{
+    display: block;
+  }
+}
+
+
+.js-show-feedback{
+    display: block;
+}

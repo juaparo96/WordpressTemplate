@@ -21,17 +21,17 @@ jQuery(document).ready(function($){
 
   $(document).on('mouseenter', '.sunset-carousel-thumb', function(){
     var id = $("#" + $(this).attr("id"));
-      sunset_get_bs_thumbs(id);
+    sunset_get_bs_thumbs(id);
 
   });
 
 
   function sunset_get_bs_thumbs( id ){
 
-      var nextThumb =  $(id).find('.item.active').find('.next-image-preview').data('image');
-      var prevThumb =  $(id).find('.item.active').find('.prev-image-preview').data('image');
-      $(id).find('.right.carousel-control').find('.thumbnail-container').css({'background-image' : 'url('+nextThumb+')'});
-      $(id).find('.left.carousel-control').find('.thumbnail-container').css({'background-image' : 'url('+prevThumb+')'});
+    var nextThumb =  $(id).find('.item.active').find('.next-image-preview').data('image');
+    var prevThumb =  $(id).find('.item.active').find('.prev-image-preview').data('image');
+    $(id).find('.right.carousel-control').find('.thumbnail-container').css({'background-image' : 'url('+nextThumb+')'});
+    $(id).find('.left.carousel-control').find('.thumbnail-container').css({'background-image' : 'url('+prevThumb+')'});
 
 
   }
@@ -169,10 +169,86 @@ jQuery(document).ready(function($){
 
   }
 
-   $(document).on('click', '.js-toggleSidebar', function(){
-            $('.sunset-sidebar').toggleClass('sidebar-closed');
-            $('body').toggleClass('no-scroll');
-            $('.sidebar-overlay').fadeToggle( 320 );
+  /*  Sidebar Functions */
+  $(document).on('click', '.js-toggleSidebar', function(){
+    $('.sunset-sidebar').toggleClass('sidebar-closed');
+    $('body').toggleClass('no-scroll');
+    $('.sidebar-overlay').fadeToggle( 320 );
+  });
+
+  /* contact form submission */
+  $('#sunsetContactForm').on('submit', function(e) {
+    e.preventDefault();
+
+    $('.has-error').removeClass('has-error');
+    $('.js-show-feedback').removeClass('js-show-feedback');
+
+    var form = $(this),
+    name = form.find('#name').val(),
+    email = form.find('#email').val(),
+    message = form.find('#message').val(),
+    ajaxurl = form.data('url');
+
+    if (name === '') {
+      $('#name').parent('.form-group').addClass('has-error');
+      return;
+    }
+
+    if (email === '') {
+      $('#email').parent('.form-group').addClass('has-error');
+      return;
+    }
+
+    if (message === '') {
+      $('#message').parent('.form-group').addClass('has-error');
+      return;
+    }
+
+    form.find('input, button, textarea').attr('disabled', 'disabled');
+    $('.js-form-submission').addClass('js-show-feedback');
+    // return;
+
+    $.ajax({
+      url : ajaxurl,
+      type : 'post',
+      data : {
+
+        name : name,
+        email : email,
+        message : message,
+        action : 'sunset_save_user_contact_form'
+
+      },
+      error : function ( response ) {
+        $('.js-form-submission').removeClass('js-show-feedback');
+        $('.js-form-error').addClass('js-show-feedback');
+        form.find('input, button, textarea').removeAttr('disabled');
+      },
+      success : function (response){
+        if (response == 0) {
+
+          setTimeout(function(){
+
+            $('.js-form-submission').removeClass('js-show-feedback');
+            $('.js-form-error').addClass('js-show-feedback');
+            form.find('input, button, textarea').removeAttr('disabled');
+
+          },1500);
+
+        } else {
+
+          setTimeout(function(){
+
+            $('.js-form-submission').removeClass('js-show-feedback');
+            $('.js-form-success').addClass('js-show-feedback');
+            form.find('input, button, textarea').removeAttr('disabled').val('');
+
+          },1500);
+
+        }
+      }
     });
+
+  });
 
 });
