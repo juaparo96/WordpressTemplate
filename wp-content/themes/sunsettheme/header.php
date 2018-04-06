@@ -55,7 +55,7 @@ This is the template for the header
           <h2 class="site-description"> <?php bloginfo('description'); ?> </h2>
         </div>  <!-- .header-content -->
 
-        <div class="nav-container">
+        <div class="nav-container hidden-xs">
 
           <nav class="navbar navbar-default navbar-sunset">
             <?php wp_nav_menu(array(

@@ -56,7 +56,17 @@ Header
 -----------------------------------------
 */
 
-.header-container { @extend %text-shadow; position: relative; display: block; height: 326px; }
+.header-container {
+  @extend %text-shadow;
+  position: relative;
+  display: block;
+  height: 326px;
+
+  @media (max-width: $xs) {
+    height: 200px;
+  }
+}
+
 .site-title{ color: #fff; margin: 0; font-size: 80px;}
 .site-description{ font-size: 14px; color: #fff; margin-top: 1em; }
 
@@ -73,6 +83,7 @@ Nav Bar
   text-align: center;
   background: rgba( 255, 255, 255, 0.1);
   border-top: 1px solid rgba( 255, 255, 255, 0.1);
+  padding: 0 15px;
   ul.nav.navbar-nav{
     float: none;
     li.menu-item{
@@ -160,6 +171,11 @@ Formato Standart del post
 article {
   padding-top: 40px;
   padding-bottom: 40px;
+
+  @media (max-width: $xs){
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
 
@@ -185,6 +201,11 @@ h1 {
     &:after {
       margin-left: 10px;
     }
+
+    @media (max-width: $xs){
+      font-size: 26px;
+    }
+
   }
 }
 
@@ -418,6 +439,11 @@ Formato de post en galeria
     &:after {
       background-color: transparent;
     }
+
+    @media (max-width: $xs) {
+      height: 220px;
+    }
+
   }
   .carousel-control{
     background: none;
@@ -515,6 +541,12 @@ Formato de post en Cita
     &:after{
       content: '”';
     }
+
+    @media (max-width: $xs) {
+      font-size: 20px;
+    }
+
+
   }
   .quote-author{
     color: $light-grey;
@@ -945,6 +977,28 @@ top: 20px;
 font-size: 10px;
 }
 
+.visible-xs{
+  text-align: center;
+  @media (max-width: $xs) {
+    .nav-menu {
+      margin: 0 auto;
+      display: inline-flex;
+      li{
+        background-color: #1F1F1F;
+          a{
+              color: #fff;
+              &:hover,
+              &:focus{
+                color: #1F1F1F;
+              }
+          }
+      }
+    }
+  }
+}
+
+
+
 /*
 
     Widgets section
@@ -1065,15 +1119,64 @@ h2.sunset-widget-title {
   margin: 0 auto;
 
   .form-group{
-
     margin-bottom: 30px;
+    position: relative;
 
+    &:before{
+      position: absolute;
+      display: block;
+      content: '';
+
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #CBCBCB;
+    }
+
+    .form-control-msg{
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 10px;
+    }
+
+    &.has-error{
+      &:before{
+        background-color: #a94442;
+      }
+    }
   }
 }
 .sunset-form-control{
   resize: vertical;
   border: none;
   border-radius: 0;
+  padding: 8px 15px;
+  outline: none;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+
+  &::-webkit-input-placeholder {
+    text-transform: uppercase;
+  }
+
+  &::-moz-placeholder {
+    text-transform: uppercase;
+  }
+
+  &:-ms-placeholder {
+    text-transform: uppercase;
+  }
+
+  &:-moz-placeholder {
+    text-transform: uppercase;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: none;
+  }
 }
 
 .btn-sunset-form{

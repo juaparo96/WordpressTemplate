@@ -1,5 +1,9 @@
 <?php
 
+//$detect = new Mobile_Detect;
+
+global $detect;
+
 /*
 
 @package
@@ -10,7 +14,7 @@
 <article id="post-<?php  the_ID(); ?>" <?php post_class('sunset-format-gallery'); ?> >
   <header class="entry-header text-center">
 
-    <?php if ( sunset_get_attachment() ) : ?>
+    <?php if ( sunset_get_attachment() && !$detect->isMobile() && !$detect->isTablet() ) : ?>
 
       <div id="post-gallery-<?php  the_ID(); ?>" class="carousel slide ll sunset-carousel-thumb" data-ride="carousel">
 
@@ -22,8 +26,7 @@
           foreach ($attachments as $attachment):
             ?>
 
-            <div class="item<?php echo $attachment['class']; ?>  background-image standart-featured" style="background-image: url(<?php echo
-            $attachment['url']; ?>);">
+            <div class="item<?php echo $attachment['class']; ?>  background-image standart-featured" style="background-image: url(<?php echo $attachment['url']; ?>);">
 
             <div class="hiden next-image-preview" data-image="<?php echo $attachment['next_img']; ?>"></div>
             <div class="hiden prev-image-preview" data-image="<?php echo $attachment['prev_img']; ?>"></div>
@@ -68,6 +71,12 @@
 </header>
 
 <div class="entry-content">
+
+  <?php if ( sunset_get_attachment() && ( $detect->isMobile() || $detect->isTablet() ) ) : ?>
+    <a class="standart-featured-link"  href="<?php the_permalink(); ?>">
+    <div class="standart-featured background-image" style="background-image: url(<?php echo sunset_get_attachment(); ?>);" ></div>
+    </a>
+    <?php endif; ?>
 
   <div class="entry-excerpt">
     <?php the_excerpt(); ?>

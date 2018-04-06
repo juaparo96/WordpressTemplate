@@ -320,6 +320,9 @@ Header
   position: relative;
   display: block;
   height: 326px; }
+  @media (max-width: 767px) {
+    .header-container {
+      height: 200px; } }
 
 .site-title {
   color: #fff;
@@ -348,7 +351,8 @@ Nav Bar
   margin-bottom: 0;
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 15px; }
   .navbar-sunset ul.nav.navbar-nav {
     float: none; }
     .navbar-sunset ul.nav.navbar-nav li.menu-item {
@@ -431,6 +435,10 @@ Formato Standart del post
 article {
   padding-top: 40px;
   padding-bottom: 40px; }
+  @media (max-width: 767px) {
+    article {
+      padding-top: 20px;
+      padding-bottom: 20px; } }
 
 h1 {
   font-size: 48px;
@@ -449,6 +457,9 @@ h1 {
       margin-right: 10px; }
     h1.entry-title:after {
       margin-left: 10px; }
+    @media (max-width: 767px) {
+      h1.entry-title {
+        font-size: 26px; } }
 
 .entry-meta {
   font-size: 13px;
@@ -605,6 +616,9 @@ Formato de post en galeria
   height: 500px; }
   .sunset-format-gallery .standart-featured:after {
     background-color: transparent; }
+  @media (max-width: 767px) {
+    .sunset-format-gallery .standart-featured {
+      height: 220px; } }
 .sunset-format-gallery .carousel-control {
   background: none;
   background-image: none;
@@ -696,6 +710,9 @@ Formato de post en Cita
     content: '“'; }
   .sunset-format-quote .quote-content:after {
     content: '”'; }
+  @media (max-width: 767px) {
+    .sunset-format-quote .quote-content {
+      font-size: 20px; } }
 .sunset-format-quote .quote-author {
   color: #898989;
   font-size: 12px;
@@ -1032,6 +1049,19 @@ a.comment-reply-link {
   top: 20px;
   font-size: 10px; }
 
+.visible-xs {
+  text-align: center; }
+  @media (max-width: 767px) {
+    .visible-xs .nav-menu {
+      margin: 0 auto;
+      display: inline-flex; }
+      .visible-xs .nav-menu li {
+        background-color: #1F1F1F; }
+        .visible-xs .nav-menu li a {
+          color: #fff; }
+          .visible-xs .nav-menu li a:hover, .visible-xs .nav-menu li a:focus {
+            color: #1F1F1F; } }
+
 /*
 
     Widgets section
@@ -1114,12 +1144,42 @@ h2.sunset-widget-title {
   width: 100%;
   margin: 0 auto; }
   .sunset-contact-form .form-group {
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    position: relative; }
+    .sunset-contact-form .form-group:before {
+      position: absolute;
+      display: block;
+      content: '';
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #CBCBCB; }
+    .sunset-contact-form .form-group .form-control-msg {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 10px; }
+    .sunset-contact-form .form-group.has-error:before {
+      background-color: #a94442; }
 
 .sunset-form-control {
   resize: vertical;
   border: none;
-  border-radius: 0; }
+  border-radius: 0;
+  padding: 8px 15px;
+  outline: none;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important; }
+  .sunset-form-control::-webkit-input-placeholder {
+    text-transform: uppercase; }
+  .sunset-form-control::-moz-placeholder {
+    text-transform: uppercase; }
+  .sunset-form-control:-ms-placeholder {
+    text-transform: uppercase; }
+  .sunset-form-control:-moz-placeholder {
+    text-transform: uppercase; }
+  .sunset-form-control:hover, .sunset-form-control:focus, .sunset-form-control:active {
+    box-shadow: none; }
 
 .btn-sunset-form {
   -webkit-transition: all 320ms ease;

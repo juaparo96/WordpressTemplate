@@ -272,7 +272,7 @@ function sunset_posted_meta () {
     }
 
     function mailtrap($phpmailer) {
-      
+
         $phpmailer->isSMTP();
         $phpmailer->Host = 'smtp.mailtrap.io';
         $phpmailer->SMTPAuth = true;
@@ -282,3 +282,14 @@ function sunset_posted_meta () {
 }
 
 add_action('phpmailer_init', 'mailtrap');
+
+// Initialize Global Mobile Detect
+
+function mobileDetectGlobal(){
+
+  global $detect;
+  $detect = new Mobile_Detect;
+
+}
+
+add_action('after_setup_theme', 'mobileDetectGlobal');
